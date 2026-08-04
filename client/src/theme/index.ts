@@ -1,4 +1,4 @@
-import { createTheme, type PaletteMode, type Theme } from '@mui/material/styles';
+import { createTheme, type Theme } from '@mui/material/styles';
 import { tokens } from './tokens';
 
 declare module '@mui/material/styles' {
@@ -10,27 +10,25 @@ declare module '@mui/material/styles' {
   }
 }
 
-export function createAppTheme(mode: PaletteMode): Theme {
-  const isLight = mode === 'light';
-
+function buildTheme(): Theme {
   const theme = createTheme({
     palette: {
-      mode,
+      mode: 'light',
       primary: { main: tokens.primary, dark: tokens.primaryDark },
       success: { main: '#22C55E' },
       warning: { main: '#F5B301' },
       error: { main: '#EF4444' },
       info: { main: '#8B5CF6' },
       background: {
-        default: isLight ? '#F3F5F9' : '#0B1220',
-        paper: isLight ? '#FFFFFF' : '#151E2E',
+        default: '#F3F5F9',
+        paper: '#FFFFFF',
       },
       text: {
-        primary: isLight ? '#1E293B' : '#E2E8F0',
-        secondary: isLight ? '#64748B' : '#94A3B8',
+        primary: '#1E293B',
+        secondary: '#64748B',
       },
-      divider: isLight ? '#EDF0F5' : '#243044',
-      sidebar: isLight ? tokens.sidebar.light : tokens.sidebar.dark,
+      divider: '#EDF0F5',
+      sidebar: tokens.sidebar,
     },
     shape: { borderRadius: 8 },
     typography: {
@@ -46,18 +44,12 @@ export function createAppTheme(mode: PaletteMode): Theme {
   });
 
   const cardBorder = `1px solid ${theme.palette.divider}`;
-  const softShadow = isLight
-    ? '0 1px 3px rgba(16,24,40,0.06), 0 1px 2px rgba(16,24,40,0.04)'
-    : '0 1px 3px rgba(0,0,0,0.4)';
 
   theme.components = {
     MuiCssBaseline: {
       styleOverrides: {
         '*::-webkit-scrollbar': { width: 8, height: 8 },
-        '*::-webkit-scrollbar-thumb': {
-          backgroundColor: isLight ? '#CBD5E1' : '#334155',
-          borderRadius: 8,
-        },
+        '*::-webkit-scrollbar-thumb': { backgroundColor: '#CBD5E1', borderRadius: 8 },
         body: { backgroundColor: theme.palette.background.default },
       },
     },
@@ -70,7 +62,11 @@ export function createAppTheme(mode: PaletteMode): Theme {
     MuiCard: {
       defaultProps: { elevation: 0 },
       styleOverrides: {
-        root: { borderRadius: 12, border: cardBorder, boxShadow: softShadow },
+        root: {
+          borderRadius: 12,
+          border: cardBorder,
+          boxShadow: '0 1px 3px rgba(16,24,40,0.06), 0 1px 2px rgba(16,24,40,0.04)',
+        },
       },
     },
     MuiButton: {
@@ -91,7 +87,7 @@ export function createAppTheme(mode: PaletteMode): Theme {
     MuiTableCell: {
       styleOverrides: {
         head: {
-          backgroundColor: isLight ? '#F8FAFC' : '#1B2537',
+          backgroundColor: '#F8FAFC',
           color: theme.palette.text.secondary,
           fontWeight: 600,
           fontSize: 12,
@@ -103,7 +99,7 @@ export function createAppTheme(mode: PaletteMode): Theme {
         body: {
           fontSize: 14,
           color: theme.palette.text.primary,
-          borderBottom: `1px solid ${isLight ? '#F1F5F9' : '#1F2A3C'}`,
+          borderBottom: '1px solid #F1F5F9',
           whiteSpace: 'nowrap',
           padding: '14px 12px',
         },
@@ -113,7 +109,7 @@ export function createAppTheme(mode: PaletteMode): Theme {
       styleOverrides: {
         root: {
           '&:last-of-type td': { borderBottom: 0 },
-          '&:hover': { backgroundColor: isLight ? '#F8FAFC' : 'rgba(255,255,255,0.02)' },
+          '&:hover': { backgroundColor: '#F8FAFC' },
         },
       },
     },
@@ -139,3 +135,5 @@ export function createAppTheme(mode: PaletteMode): Theme {
 
   return theme;
 }
+
+export const appTheme = buildTheme();

@@ -31,7 +31,7 @@ mini-crm/
 │       ├── app/             # Router
 │       ├── components/      # layout, guards, common, form
 │       ├── constants/       # status/priority/role yorliqlari
-│       ├── contexts/        # auth va dark mode
+│       ├── contexts/        # auth konteksti
 │       ├── hooks/           # use-auth, use-debounce, use-list-controls
 │       ├── lib/             # axios instance, formatlash, token storage
 │       ├── pages/           # sahifalar (auth, dashboard, customers, ...)
@@ -283,7 +283,7 @@ SQL sxema: [`docs/schema.sql`](docs/schema.sql)
 | Projects | `/projects` | Loyihalar CRUD |
 | Tasks | `/tasks` | Vazifalar CRUD |
 | Users | `/users` | Foydalanuvchilar CRUD (faqat admin) |
-| Profile | `/profile` | Profil, shaxsiy vazifa statistikasi, parolni o'zgartirish va sozlamalar (Dark Mode) |
+| Profile | `/profile` | Profil, shaxsiy vazifa statistikasi, parolni o'zgartirish va sozlamalar |
 
 Topbardagi qo'ng'iroq belgisi joriy foydalanuvchiga biriktirilgan ochiq
 vazifalarni ko'rsatadi: badge — ularning soni, ro'yxat esa deadline bo'yicha
@@ -333,8 +333,7 @@ tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 
 ## Qo'shimcha imkoniyatlar
 
-- **Dark Mode** — Profile sahifasidagi sozlamalar bo'limida yoki topbar tugmasi
-  orqali; tanlov `localStorage` da saqlanadi, birinchi kirishda tizim mavzusiga
-  moslashadi.
 - **Docker** — `docker-compose.yml` orqali PostgreSQL konteynerini bitta
   buyruq bilan ko'tarish.
+- **Bildirishnomalar** — topbardagi qo'ng'iroq foydalanuvchiga biriktirilgan
+  ochiq vazifalarni deadline bo'yicha ko'rsatadi.

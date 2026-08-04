@@ -1,7 +1,6 @@
 import { StatusChip } from '@/components/common/StatusChip';
 import { ROLE_LABEL } from '@/constants/status';
 import { useAuth } from '@/hooks/use-auth';
-import { useColorMode } from '@/hooks/use-color-mode';
 import { useMyTasks } from '@/hooks/use-my-tasks';
 import { formatDate, getInitials } from '@/lib/format';
 import { tokens } from '@/theme/tokens';
@@ -10,12 +9,10 @@ import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import TranslateIcon from '@mui/icons-material/Translate';
 import type { SvgIconComponent } from '@mui/icons-material';
 import {
   Avatar,
@@ -27,7 +24,6 @@ import {
   Divider,
   Skeleton,
   Stack,
-  Switch,
   Typography,
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
@@ -104,7 +100,6 @@ function MetricTile({ icon: Icon, label, value, color }: TileProps) {
 
 export function ProfilePage() {
   const { user } = useAuth();
-  const { mode, toggleMode } = useColorMode();
   const { total, completed, open, isLoading } = useMyTasks();
   const [editOpen, setEditOpen] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
@@ -235,90 +230,44 @@ export function ProfilePage() {
           )}
         </Box>
 
-        <Box
-          sx={{
-            display: 'grid',
-            gap: 3,
-            gridTemplateColumns: { xs: '1fr', lg: '3fr 2fr' },
-            alignItems: 'start',
-          }}
-        >
-          <Card>
-            <CardHeader title="Shaxsiy ma'lumotlar" slotProps={{ title: { variant: 'h5' } }} />
-            <Divider />
-            <CardContent>
-              <Box
-                sx={{
-                  display: 'grid',
-                  gap: 2.5,
-                  gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <InfoTile
-                  icon={BadgeOutlinedIcon}
-                  label="To'liq ism"
-                  value={user.fullname}
-                  color={tokens.stat.customers}
-                />
-                <InfoTile
-                  icon={MailOutlineIcon}
-                  label="Email"
-                  value={user.email}
-                  color={tokens.stat.projects}
-                />
-                <InfoTile
-                  icon={AdminPanelSettingsOutlinedIcon}
-                  label="Role"
-                  value={ROLE_LABEL[user.role]}
-                  color={tokens.stat.completed}
-                />
-                <InfoTile
-                  icon={CalendarMonthOutlinedIcon}
-                  label="Ro'yxatdan o'tgan sana"
-                  value={formatDate(user.createdAt)}
-                  color={tokens.stat.tasks}
-                />
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader title="Sozlamalar" slotProps={{ title: { variant: 'h5' } }} />
-            <Divider />
-            <CardContent>
-              <Stack spacing={2.5}>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  spacing={2}
-                >
-                  <InfoTile
-                    icon={DarkModeOutlinedIcon}
-                    label="Ko'rinish"
-                    value="Dark Mode"
-                    color={tokens.stat.inProgress}
-                  />
-                  <Switch checked={mode === 'dark'} onChange={toggleMode} />
-                </Stack>
-
-                <InfoTile
-                  icon={TranslateIcon}
-                  label="Til"
-                  value="O'zbekcha"
-                  color={tokens.stat.customers}
-                />
-
-                <InfoTile
-                  icon={CalendarMonthOutlinedIcon}
-                  label="Sana formati"
-                  value="kk.oo.yyyy"
-                  color={tokens.stat.projects}
-                />
-              </Stack>
-            </CardContent>
-          </Card>
-        </Box>
+        <Card>
+          <CardHeader title="Shaxsiy ma'lumotlar" slotProps={{ title: { variant: 'h5' } }} />
+          <Divider />
+          <CardContent>
+            <Box
+              sx={{
+                display: 'grid',
+                gap: 2.5,
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' },
+              }}
+            >
+              <InfoTile
+                icon={BadgeOutlinedIcon}
+                label="To'liq ism"
+                value={user.fullname}
+                color={tokens.stat.customers}
+              />
+              <InfoTile
+                icon={MailOutlineIcon}
+                label="Email"
+                value={user.email}
+                color={tokens.stat.projects}
+              />
+              <InfoTile
+                icon={AdminPanelSettingsOutlinedIcon}
+                label="Role"
+                value={ROLE_LABEL[user.role]}
+                color={tokens.stat.completed}
+              />
+              <InfoTile
+                icon={CalendarMonthOutlinedIcon}
+                label="Ro'yxatdan o'tgan sana"
+                value={formatDate(user.createdAt)}
+                color={tokens.stat.tasks}
+              />
+            </Box>
+          </CardContent>
+        </Card>
       </Stack>
 
       <EditProfileDialog open={editOpen} onClose={() => setEditOpen(false)} />

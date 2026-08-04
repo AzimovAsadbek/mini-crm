@@ -1,7 +1,6 @@
 import type { ChipTone } from '@/constants/status';
 import { tokens } from '@/theme/tokens';
 import { Chip } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
 interface StatusChipProps {
   label: string;
@@ -9,8 +8,7 @@ interface StatusChipProps {
 }
 
 export function StatusChip({ label, tone }: StatusChipProps) {
-  const theme = useTheme();
-  const colors = tokens.status[tone][theme.palette.mode];
+  const colors = tokens.status[tone];
 
   return (
     <Chip

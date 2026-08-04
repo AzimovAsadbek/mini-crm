@@ -1,11 +1,8 @@
 import { useAuth } from '@/hooks/use-auth';
-import { useColorMode } from '@/hooks/use-color-mode';
 import { getInitials } from '@/lib/format';
 import { ROLE_LABEL } from '@/constants/status';
 import { SIDEBAR_WIDTH, TOPBAR_HEIGHT } from '@/theme/tokens';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -19,7 +16,6 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
@@ -35,7 +31,6 @@ interface TopbarProps {
 
 export function Topbar({ title, sidebarOpen, onMenuClick, onLogout }: TopbarProps) {
   const { user } = useAuth();
-  const { mode, toggleMode } = useColorMode();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -68,16 +63,6 @@ export function Topbar({ title, sidebarOpen, onMenuClick, onLogout }: TopbarProp
         <Typography variant="h4" sx={{ flexGrow: 1, ml: 0.5 }}>
           {title}
         </Typography>
-
-        <Tooltip title={mode === 'light' ? 'Dark mode' : 'Light mode'}>
-          <IconButton onClick={toggleMode} sx={{ color: 'text.secondary' }}>
-            {mode === 'light' ? (
-              <DarkModeOutlinedIcon fontSize="small" />
-            ) : (
-              <LightModeOutlinedIcon fontSize="small" />
-            )}
-          </IconButton>
-        </Tooltip>
 
         <NotificationsMenu />
 
