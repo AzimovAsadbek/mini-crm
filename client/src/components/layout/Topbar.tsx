@@ -8,12 +8,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import {
   AppBar,
   Avatar,
-  Badge,
   Box,
   Divider,
   IconButton,
@@ -26,6 +24,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NotificationsMenu } from './NotificationsMenu';
 
 interface TopbarProps {
   title: string;
@@ -80,11 +79,7 @@ export function Topbar({ title, sidebarOpen, onMenuClick, onLogout }: TopbarProp
           </IconButton>
         </Tooltip>
 
-        <IconButton sx={{ color: 'text.secondary' }}>
-          <Badge color="error" variant="dot">
-            <NotificationsNoneIcon fontSize="small" />
-          </Badge>
-        </IconButton>
+        <NotificationsMenu />
 
         <Box
           onClick={(event) => setAnchorEl(event.currentTarget)}

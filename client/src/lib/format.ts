@@ -20,6 +20,27 @@ export function formatDate(value?: string | null): string {
   return `${day}.${month}.${date.getFullYear()}`;
 }
 
+/**
+ * Deadline'gacha qolgan kunlar. Manfiy son — muddat o'tib ketgan.
+ * Vaqt qismi hisobga olinmaydi, faqat kalendar kunlari solishtiriladi.
+ */
+export function daysUntil(value?: string | null): number | null {
+  if (!value) {
+    return null;
+  }
+
+  const target = new Date(value);
+
+  if (Number.isNaN(target.getTime())) {
+    return null;
+  }
+
+  const startOfDay = (date: Date) =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+  return Math.round((startOfDay(target) - startOfDay(new Date())) / 86_400_000);
+}
+
 /** `<input type="date">` uchun YYYY-MM-DD */
 export function toDateInputValue(value?: string | null): string {
   if (!value) {
