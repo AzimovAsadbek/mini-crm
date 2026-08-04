@@ -359,6 +359,8 @@ tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 | `npm run prisma:deploy` | Mavjud migratsiyalarni qo'llash |
 | `npm run prisma:studio` | Prisma Studio |
 | `npm run seed` | Boshlang'ich ma'lumotlar |
+| `npm run lint` | ESLint tekshiruvi (`lint:fix` — avtomatik tuzatish) |
+| `npm run format` | Prettier bilan formatlash (`format:check` — faqat tekshirish) |
 
 ### `client/`
 
@@ -367,6 +369,20 @@ tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 | `npm run dev` | Dev server |
 | `npm run build` | Production build |
 | `npm run preview` | Build natijasini ko'rish |
+| `npm run lint` | ESLint tekshiruvi (`lint:fix` — avtomatik tuzatish) |
+| `npm run format` | Prettier bilan formatlash (`format:check` — faqat tekshirish) |
+
+### Kod sifati
+
+Ikkala paketda ham ESLint (flat config, `eslint.config.*`) va Prettier
+sozlangan, bitta uslub bilan: 100 belgi kenglik, single quote, trailing comma.
+`eslint-config-prettier` formatlash qoidalarini ESLint'dan olib tashlaydi —
+ikkalasi bir-biriga xalaqit bermaydi.
+
+Backendda `typescript-eslint` ning **type-aware** to'plami ishlaydi (tip
+ma'lumotidan foydalanadigan qoidalar). Frontendda standart to'plam va React
+Hooks qoidalari — React Compiler uchun mo'ljallangan yangi eksperimental
+qoidalar yoqilmagan.
 
 ---
 
