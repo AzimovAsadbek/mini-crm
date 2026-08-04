@@ -1,23 +1,19 @@
 import { authApi } from '@/api';
+import { RHFPasswordField } from '@/components/form/RHFPasswordField';
 import { RHFTextField } from '@/components/form/RHFTextField';
 import { useAuth } from '@/hooks/use-auth';
 import { getErrorMessage } from '@/lib/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import {
   Box,
   Button,
   Checkbox,
   FormControlLabel,
-  IconButton,
-  InputAdornment,
   Link,
   Stack,
   Typography,
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
@@ -32,7 +28,6 @@ const schema = z.object({
 type LoginForm = z.infer<typeof schema>;
 
 export function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,31 +71,11 @@ export function LoginPage() {
             <Typography variant="body2" fontWeight={500}>
               Parol
             </Typography>
-            <RHFTextField
+            <RHFPasswordField
               name="password"
               control={control}
-              type={showPassword ? 'text' : 'password'}
               placeholder="Parolni kiriting"
               autoComplete="current-password"
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        size="small"
-                        onClick={() => setShowPassword((current) => !current)}
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityOffOutlinedIcon fontSize="small" />
-                        ) : (
-                          <VisibilityOutlinedIcon fontSize="small" />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                },
-              }}
             />
           </Stack>
 

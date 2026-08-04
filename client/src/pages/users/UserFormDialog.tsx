@@ -1,5 +1,6 @@
 import { usersApi } from '@/api';
 import { FormDialog } from '@/components/common/FormDialog';
+import { RHFPasswordField } from '@/components/form/RHFPasswordField';
 import { RHFSelect } from '@/components/form/RHFSelect';
 import { RHFTextField } from '@/components/form/RHFTextField';
 import { ROLE_OPTIONS } from '@/constants/status';
@@ -91,11 +92,11 @@ export function UserFormDialog({ open, user, onClose }: UserFormDialogProps) {
       <Stack spacing={2} sx={{ pt: 1 }}>
         <RHFTextField name="fullname" control={control} label="To'liq ism" />
         <RHFTextField name="email" control={control} label="Email" type="email" />
-        <RHFTextField
+        <RHFPasswordField
           name="password"
           control={control}
-          label={user ? "Yangi parol (ixtiyoriy)" : 'Parol'}
-          type="password"
+          label={user ? 'Yangi parol (ixtiyoriy)' : 'Parol'}
+          autoComplete="new-password"
         />
         <RHFSelect name="role" control={control} label="Role" options={ROLE_OPTIONS} />
       </Stack>

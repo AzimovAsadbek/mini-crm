@@ -1,4 +1,5 @@
 import { authApi } from '@/api';
+import { RHFPasswordField } from '@/components/form/RHFPasswordField';
 import { RHFTextField } from '@/components/form/RHFTextField';
 import { useAuth } from '@/hooks/use-auth';
 import { getErrorMessage } from '@/lib/axios';
@@ -79,11 +80,11 @@ export function RegisterPage() {
             <Typography variant="body2" fontWeight={500}>
               Parol
             </Typography>
-            <RHFTextField
+            <RHFPasswordField
               name="password"
               control={control}
-              type="password"
               placeholder="Parolni kiriting"
+              autoComplete="new-password"
             />
           </Stack>
 
@@ -91,11 +92,11 @@ export function RegisterPage() {
             <Typography variant="body2" fontWeight={500}>
               Parolni tasdiqlang
             </Typography>
-            <RHFTextField
+            <RHFPasswordField
               name="confirmPassword"
               control={control}
-              type="password"
               placeholder="Parolni qayta kiriting"
+              autoComplete="new-password"
             />
           </Stack>
 

@@ -1,6 +1,6 @@
 import { usersApi } from '@/api';
 import { FormDialog } from '@/components/common/FormDialog';
-import { RHFTextField } from '@/components/form/RHFTextField';
+import { RHFPasswordField } from '@/components/form/RHFPasswordField';
 import { useAuth } from '@/hooks/use-auth';
 import { getErrorMessage } from '@/lib/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -70,18 +70,23 @@ export function ChangePasswordDialog({ open, onClose }: { open: boolean; onClose
       onClose={onClose}
     >
       <Stack spacing={2} sx={{ pt: 1 }}>
-        <RHFTextField
+        <RHFPasswordField
           name="currentPassword"
           control={control}
           label="Joriy parol"
-          type="password"
+          autoComplete="current-password"
         />
-        <RHFTextField name="newPassword" control={control} label="Yangi parol" type="password" />
-        <RHFTextField
+        <RHFPasswordField
+          name="newPassword"
+          control={control}
+          label="Yangi parol"
+          autoComplete="new-password"
+        />
+        <RHFPasswordField
           name="confirmPassword"
           control={control}
           label="Yangi parolni tasdiqlang"
-          type="password"
+          autoComplete="new-password"
         />
       </Stack>
     </FormDialog>
