@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
@@ -23,6 +23,8 @@ import { AuthLayout } from './AuthLayout';
 const schema = z.object({
   email: z.string().min(1, 'Email kiriting').email("Email formati noto'g'ri"),
   password: z.string().min(6, 'Parol kamida 6 belgidan iborat bo\'lishi kerak'),
+  /** Belgilansa sessiya 7 kun saqlanadi, aks holda brauzer yopilguncha. */
+  remember: z.boolean(),
 });
 
 type LoginForm = z.infer<typeof schema>;
@@ -34,13 +36,13 @@ export function LoginPage() {
 
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(schema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: '', password: '', remember: false },
   });
 
   const mutation = useMutation({
-    mutationFn: authApi.login,
-    onSuccess: (data) => {
-      signIn(data);
+    mutationFn: ({ remember: _remember, ...credentials }: LoginForm) => authApi.login(credentials),
+    onSuccess: (data, variables) => {
+      signIn(data, variables.remember);
       toast.success(`Xush kelibsiz, ${data.user.fullname}!`);
 
       const from = (location.state as { from?: string } | null)?.from;
@@ -80,9 +82,21 @@ export function LoginPage() {
           </Stack>
 
           <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <FormControlLabel
-              control={<Checkbox defaultChecked size="small" />}
-              label={<Typography variant="body2">Eslab qolish</Typography>}
+            <Controller
+              name="remember"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      size="small"
+                      checked={field.value}
+                      onChange={(event) => field.onChange(event.target.checked)}
+                    />
+                  }
+                  label={<Typography variant="body2">Eslab qolish</Typography>}
+                />
+              )}
             />
             <Link component="button" type="button" variant="body2" underline="hover">
               Parolni unutdingizmi?

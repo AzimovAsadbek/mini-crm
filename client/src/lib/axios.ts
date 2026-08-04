@@ -30,6 +30,13 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+/**
+ * Bu endpointlar 401 qaytarsa refresh qilinmaydi — aks holda cheksiz halqa
+ * hosil bo'ladi. `/auth/me` ataylab ro'yxatda yo'q: sahifa yangilanganda
+ * access token eskirgan bo'lsa, u refresh orqali tiklanishi kerak.
+ */
+const NO_REFRESH_ROUTES = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/logout'];
+
 let refreshPromise: Promise<string> | null = null;
 
 /** Bir vaqtda ketgan bir nechta 401 uchun bitta refresh so'rovi yuboriladi. */
@@ -51,9 +58,9 @@ api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const request = error.config as RetriableRequest | undefined;
-    const isAuthRoute = request?.url?.includes('/auth/');
+    const skipRefresh = NO_REFRESH_ROUTES.some((route) => request?.url?.includes(route));
 
-    if (error.response?.status !== 401 || !request || request._retried || isAuthRoute) {
+    if (error.response?.status !== 401 || !request || request._retried || skipRefresh) {
       return Promise.reject(error);
     }
 

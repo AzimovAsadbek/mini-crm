@@ -46,7 +46,8 @@ export function RegisterPage() {
         password: values.password,
       }),
     onSuccess: (data) => {
-      signIn(data);
+      // Ro'yxatdan o'tishda "eslab qolish" yo'q — sessiya brauzer yopilguncha.
+      signIn(data, false);
       toast.success("Ro'yxatdan o'tdingiz!");
       navigate('/dashboard', { replace: true });
     },

@@ -9,7 +9,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   isAdmin: boolean;
   isLoading: boolean;
-  signIn: (response: AuthResponse) => void;
+  signIn: (response: AuthResponse, remember: boolean) => void;
   signOut: () => Promise<void>;
   setUser: (user: User) => void;
 }
@@ -26,8 +26,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUserState(null);
   }, []);
 
-  const signIn = useCallback((response: AuthResponse) => {
-    tokenStorage.save(response.accessToken, response.refreshToken, response.user);
+  const signIn = useCallback((response: AuthResponse, remember: boolean) => {
+    tokenStorage.save(response.accessToken, response.refreshToken, response.user, remember);
     setUserState(response.user);
   }, []);
 
