@@ -110,15 +110,15 @@ async function main(): Promise<void> {
   for (let index = 0; index < COMPANIES.length * 2; index += 1) {
     const company = COMPANIES[index % COMPANIES.length];
     const suffix = index >= COMPANIES.length ? ` ${Math.floor(index / COMPANIES.length) + 1}` : '';
-    const fullname = `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`;
+    const firstName = pick(FIRST_NAMES);
 
     customers.push(
       await prisma.customer.create({
         data: {
           companyName: `${company}${suffix}`,
-          fullname,
+          fullname: `${firstName} ${pick(LAST_NAMES)}`,
           phone: `+9989${randomInt(0, 9)}${randomInt(1000000, 9999999)}`,
-          email: `customer${index + 1}@${company.toLowerCase().replace(/[^a-z]/g, '')}.uz`,
+          email: `${firstName.toLowerCase()}${index + 1}@mail.com`,
           address: pick(CITIES),
           createdAt: dateWithinLastMonths(7),
         },
