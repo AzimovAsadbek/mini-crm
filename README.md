@@ -5,14 +5,23 @@ JWT autentifikatsiya, Admin/User rollari, to'rtta bo'lim uchun to'liq CRUD
 (qidiruv, filtr, pagination bilan), statistik dashboard va mobil qurilmalarga
 moslashgan interfeys.
 
-**Ilova:** https://mini-crm-app-blue.vercel.app
-· **API:** https://mini-crm-api.vercel.app/api
-· **Swagger:** https://mini-crm-api.vercel.app/api/docs
+## Jonli versiya
 
-Kirish: `admin@minicrm.uz` / `Admin123!`
+| | |
+| --- | --- |
+| **Ilova** | https://mini-crm-app-blue.vercel.app |
+| **API** | https://mini-crm-api.vercel.app/api |
+| **Swagger** | https://mini-crm-api.vercel.app/api/docs |
 
-Deploy bo'yicha qadam-baqadam yo'riqnoma: [DEPLOYMENT.md](DEPLOYMENT.md)
-(Vercel + Neon, butunlay bepul).
+| Rol | Email | Parol |
+| --- | --- | --- |
+| Admin | `admin@minicrm.uz` | `Admin123!` |
+| User | `user@minicrm.uz` | `User123!` |
+
+Deploy qanday tashkil etilgani: [DEPLOYMENT.md](DEPLOYMENT.md) (Vercel + Neon).
+
+> Baza bepul tarifda, harakatsizlikdan keyin uxlaydi — birinchi so'rov
+> ~1-2 soniya kutishi mumkin.
 
 ---
 
@@ -41,7 +50,7 @@ mini-crm/
 │       ├── components/      # layout, guards, common, form
 │       ├── constants/       # status/priority/role yorliqlari
 │       ├── contexts/        # auth konteksti
-│       ├── hooks/           # use-auth, use-debounce, use-list-controls
+│       ├── hooks/           # use-auth, use-debounce, use-list-controls, use-my-tasks
 │       ├── lib/             # axios instance, formatlash, token storage
 │       ├── pages/           # sahifalar (auth, dashboard, customers, ...)
 │       ├── theme/           # MUI temasi va dizayn tokenlari
@@ -148,7 +157,9 @@ npm run dev
 - Ilova: <http://localhost:5173>
 
 Vite `/api` so'rovlarini `http://localhost:4000` ga proksilaydi, shuning uchun
-frontend uchun alohida `.env` talab qilinmaydi.
+lokal ishlashda frontend uchun `.env` talab qilinmaydi. Backend boshqa manzilda
+bo'lsa `client/.env` da `VITE_API_URL` ni belgilang
+(namuna: [`client/.env.example`](client/.env.example)).
 
 ---
 
@@ -181,8 +192,14 @@ o'zgartirilganda barcha refresh tokenlar bekor qilinadi.
 
 ## API
 
-To'liq interaktiv hujjat: <http://localhost:4000/api/docs>
-Postman uchun: [`docs/mini-crm.postman_collection.json`](docs/mini-crm.postman_collection.json)
+Interaktiv hujjat (Swagger):
+<https://mini-crm-api.vercel.app/api/docs> — lokalda <http://localhost:4000/api/docs>
+
+Postman kolleksiyasi:
+[`docs/mini-crm.postman_collection.json`](docs/mini-crm.postman_collection.json).
+Ichidagi `baseUrl` o'zgaruvchisi `http://localhost:4000/api` ga sozlangan —
+jonli API'ni sinash uchun uni `https://mini-crm-api.vercel.app/api` ga
+almashtiring. `login` so'rovi tokenlarni avtomatik saqlaydi.
 
 ### Auth
 
@@ -217,6 +234,15 @@ Qo'shimcha filtrlar:
 
 Yordamchi endpointlar: `/api/customers/select`, `/api/projects/select`,
 `/api/users/assignable` — formalardagi select'lar uchun.
+
+### Profil
+
+Har qanday foydalanuvchi uchun ochiq (admin huquqi talab qilinmaydi):
+
+| Metod | Yo'l | Tavsif |
+| --- | --- | --- |
+| `PATCH` | `/api/users/me` | O'z profilini yangilash (ism, email) |
+| `PATCH` | `/api/users/me/password` | O'z parolini o'zgartirish |
 
 ### Dashboard
 
@@ -306,6 +332,10 @@ tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 - Access token qisqa muddatli (15 daqiqa), refresh token bazada hash holda
   saqlanadi va har yangilanishda rotatsiya qilinadi — bu server tomonda
   haqiqiy logout imkonini beradi
+- Sessiya muddatini **backend** belgilaydi: frontend cookie'ning amal qilish
+  vaqtini refresh tokenning `exp` da'vosidan o'qiydi, ya'ni client tomondan
+  sessiyani uzaytirib bo'lmaydi. "Eslab qolish" belgilanmasa cookie'lar
+  sessiya cookie bo'ladi va brauzer yopilganda o'chadi
 - `helmet` HTTP sarlavhalari, CORS oq ro'yxati, `@nestjs/throttler` orqali
   so'rovlar cheklovi
 - Global `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`) — ortiqcha
@@ -342,6 +372,8 @@ tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 
 ## Qo'shimcha imkoniyatlar
 
+- **Deployment** — frontend, backend va baza to'liq ishlaydigan holda
+  joylashtirilgan (Vercel + Neon), qarang [DEPLOYMENT.md](DEPLOYMENT.md).
 - **Docker** — `docker-compose.yml` orqali PostgreSQL konteynerini bitta
   buyruq bilan ko'tarish.
 - **Bildirishnomalar** — topbardagi qo'ng'iroq foydalanuvchiga biriktirilgan
