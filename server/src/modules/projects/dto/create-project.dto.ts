@@ -11,6 +11,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { emptyToNull, trim, trimToNull } from '../../../common/utils/transform.util';
 
 export class CreateProjectDto {
   @ApiProperty({ example: 1, description: 'Mijoz IDsi' })
@@ -21,16 +22,16 @@ export class CreateProjectDto {
 
   @ApiProperty({ example: 'CRM tizim' })
   @IsString()
-  @MinLength(2, { message: 'Loyiha nomi kamida 2 belgidan iborat bo\'lishi kerak' })
+  @MinLength(2, { message: "Loyiha nomi kamida 2 belgidan iborat bo'lishi kerak" })
   @MaxLength(160)
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @Transform(trim)
   projectName!: string;
 
   @ApiPropertyOptional({ example: 'Ichki jarayonlarni avtomatlashtirish' })
   @IsOptional()
   @IsString()
   @MaxLength(2000)
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() || null : value))
+  @Transform(trimToNull)
   description?: string | null;
 
   @ApiPropertyOptional({ enum: ProjectStatus, default: ProjectStatus.PENDING })
@@ -40,7 +41,7 @@ export class CreateProjectDto {
 
   @ApiPropertyOptional({ example: '2024-06-30', description: 'YYYY-MM-DD' })
   @IsOptional()
-  @Transform(({ value }) => (value === '' ? null : value))
+  @Transform(emptyToNull)
   @IsDateString({}, { message: "Deadline sanasi noto'g'ri formatda" })
   deadline?: string | null;
 }

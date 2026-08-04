@@ -11,6 +11,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { emptyToNull, trim, trimToNull } from '../../../common/utils/transform.util';
 
 export class CreateTaskDto {
   @ApiProperty({ example: 1, description: 'Loyiha IDsi' })
@@ -28,16 +29,16 @@ export class CreateTaskDto {
 
   @ApiProperty({ example: 'Login page yaratish' })
   @IsString()
-  @MinLength(2, { message: 'Vazifa nomi kamida 2 belgidan iborat bo\'lishi kerak' })
+  @MinLength(2, { message: "Vazifa nomi kamida 2 belgidan iborat bo'lishi kerak" })
   @MaxLength(180)
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @Transform(trim)
   title!: string;
 
   @ApiPropertyOptional({ example: 'Dizaynga mos login sahifasi' })
   @IsOptional()
   @IsString()
   @MaxLength(2000)
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() || null : value))
+  @Transform(trimToNull)
   description?: string | null;
 
   @ApiPropertyOptional({ enum: TaskStatus, default: TaskStatus.PENDING })
@@ -52,7 +53,7 @@ export class CreateTaskDto {
 
   @ApiPropertyOptional({ example: '2024-05-25', description: 'YYYY-MM-DD' })
   @IsOptional()
-  @Transform(({ value }) => (value === '' ? null : value))
+  @Transform(emptyToNull)
   @IsDateString({}, { message: "Deadline sanasi noto'g'ri formatda" })
   deadline?: string | null;
 }

@@ -3,19 +3,17 @@ import { TaskPriority, TaskStatus } from '@prisma/client';
 import { Transform } from 'class-transformer';
 import { IsEnum, IsInt, IsOptional, IsPositive } from 'class-validator';
 import { PaginationQueryDto } from '../../../common/dto/pagination-query.dto';
+import { csvToArray } from '../../../common/utils/transform.util';
 
 export class QueryTasksDto extends PaginationQueryDto {
   @ApiPropertyOptional({
     enum: TaskStatus,
     isArray: true,
-    description: "Holat bo'yicha filtr. Bir nechtasini vergul bilan yozish mumkin: PENDING,IN_PROGRESS",
+    description:
+      "Holat bo'yicha filtr. Bir nechtasini vergul bilan yozish mumkin: PENDING,IN_PROGRESS",
   })
   @IsOptional()
-  @Transform(({ value }) =>
-    typeof value === 'string'
-      ? value.split(',').map((item) => item.trim()).filter(Boolean)
-      : value,
-  )
+  @Transform(csvToArray)
   @IsEnum(TaskStatus, { each: true })
   status?: TaskStatus[];
 

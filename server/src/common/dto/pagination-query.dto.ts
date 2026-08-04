@@ -1,6 +1,7 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsIn, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { trim } from '../utils/transform.util';
 
 export type SortOrder = 'asc' | 'desc';
 
@@ -12,7 +13,12 @@ export class PaginationQueryDto {
   @Min(1)
   page: number = 1;
 
-  @ApiPropertyOptional({ default: 10, minimum: 1, maximum: 100, description: 'Sahifadagi yozuvlar soni' })
+  @ApiPropertyOptional({
+    default: 10,
+    minimum: 1,
+    maximum: 100,
+    description: 'Sahifadagi yozuvlar soni',
+  })
   @IsOptional()
   @Transform(({ value }) => Number(value))
   @IsInt()
@@ -22,7 +28,7 @@ export class PaginationQueryDto {
 
   @ApiPropertyOptional({ description: 'Qidiruv matni' })
   @IsOptional()
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @Transform(trim)
   @IsString()
   search?: string;
 

@@ -1,14 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsEmail, IsString, Matches, MaxLength, MinLength } from 'class-validator';
-
-const trim = ({ value }: { value: unknown }) =>
-  typeof value === 'string' ? value.trim() : value;
+import { trim, trimLower } from '../../../common/utils/transform.util';
 
 export class CreateCustomerDto {
   @ApiProperty({ example: 'IT Solutions' })
   @IsString()
-  @MinLength(2, { message: 'Kompaniya nomi kamida 2 belgidan iborat bo\'lishi kerak' })
+  @MinLength(2, { message: "Kompaniya nomi kamida 2 belgidan iborat bo'lishi kerak" })
   @MaxLength(160)
   @Transform(trim)
   companyName!: string;
@@ -30,12 +28,12 @@ export class CreateCustomerDto {
   @ApiProperty({ example: 'anvar@mail.com' })
   @IsEmail({}, { message: "Email formati noto'g'ri" })
   @MaxLength(160)
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value))
+  @Transform(trimLower)
   email!: string;
 
   @ApiProperty({ example: 'Toshkent' })
   @IsString()
-  @MinLength(2, { message: 'Manzil kamida 2 belgidan iborat bo\'lishi kerak' })
+  @MinLength(2, { message: "Manzil kamida 2 belgidan iborat bo'lishi kerak" })
   @MaxLength(255)
   @Transform(trim)
   address!: string;
