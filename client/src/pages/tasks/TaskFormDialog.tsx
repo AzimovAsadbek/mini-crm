@@ -3,6 +3,7 @@ import { FormDialog } from '@/components/common/FormDialog';
 import { RHFSelect } from '@/components/form/RHFSelect';
 import { RHFTextField } from '@/components/form/RHFTextField';
 import { TASK_PRIORITY_OPTIONS, TASK_STATUS_OPTIONS } from '@/constants/status';
+import { useAuth } from '@/hooks/use-auth';
 import { getErrorMessage } from '@/lib/axios';
 import { toDateInputValue } from '@/lib/format';
 import type { Task } from '@/types';
@@ -44,6 +45,10 @@ interface TaskFormDialogProps {
 
 export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
   const queryClient = useQueryClient();
+  const { isAdmin } = useAuth();
+
+  // Oddiy USER faqat o'ziga biriktirilgan vazifaning holatini o'zgartira oladi.
+  const statusOnly = !isAdmin;
 
   const { data: projects = [] } = useQuery({
     queryKey: ['projects-select'],
@@ -82,6 +87,10 @@ export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
 
   const mutation = useMutation({
     mutationFn: (values: TaskForm) => {
+      if (task && statusOnly) {
+        return tasksApi.update(task.id, { status: values.status });
+      }
+
       const payload = {
         title: values.title,
         projectId: Number(values.projectId),
@@ -112,13 +121,14 @@ export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
       onClose={onClose}
     >
       <Stack spacing={2} sx={{ pt: 1 }}>
-        <RHFTextField name="title" control={control} label="Vazifa nomi" />
+        <RHFTextField name="title" control={control} label="Vazifa nomi" disabled={statusOnly} />
 
         <RHFSelect
           name="projectId"
           control={control}
           label="Loyiha"
           emptyLabel="Loyihani tanlang"
+          disabled={statusOnly}
           options={projects.map((project) => ({
             value: project.id,
             label: project.projectName,
@@ -130,6 +140,7 @@ export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
           control={control}
           label="Mas'ul"
           emptyLabel="Biriktirilmagan"
+          disabled={statusOnly}
           options={users.map((user) => ({ value: user.id, label: user.fullname }))}
         />
 
@@ -139,6 +150,7 @@ export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
             name="priority"
             control={control}
             label="Priority"
+            disabled={statusOnly}
             options={TASK_PRIORITY_OPTIONS}
           />
         </Stack>
@@ -148,10 +160,18 @@ export function TaskFormDialog({ open, task, onClose }: TaskFormDialogProps) {
           control={control}
           label="Deadline"
           type="date"
+          disabled={statusOnly}
           slotProps={{ inputLabel: { shrink: true } }}
         />
 
-        <RHFTextField name="description" control={control} label="Tavsif" multiline minRows={3} />
+        <RHFTextField
+          name="description"
+          control={control}
+          label="Tavsif"
+          multiline
+          minRows={3}
+          disabled={statusOnly}
+        />
       </Stack>
     </FormDialog>
   );
