@@ -153,7 +153,8 @@ export function ProfilePage() {
                 alignItems: { xs: 'center', md: 'flex-end' },
                 textAlign: { xs: 'center', md: 'left' },
                 gap: { xs: 1.5, md: 3 },
-                mt: { xs: '-54px', md: '-62px' },
+                // Avatar bannerga chiqadi, ammo ism gradient ustiga tushmasligi kerak.
+                mt: { xs: '-54px', md: '-48px' },
               }}
             >
               <Avatar
