@@ -1,5 +1,18 @@
 # Deploy — Vercel + Neon
 
+## Ishlab turgan manzillar
+
+| Nima | Manzil |
+| --- | --- |
+| Ilova | https://mini-crm-app-blue.vercel.app |
+| API | https://mini-crm-api.vercel.app/api |
+| Swagger | https://mini-crm-api.vercel.app/api/docs |
+
+Kirish: `admin@minicrm.uz` / `Admin123!` (Admin) yoki
+`user@minicrm.uz` / `User123!` (User).
+
+---
+
 Loyiha uchta qismdan iborat va uchalasi ham bepul tariflarga joylashtiriladi:
 
 | Qism | Platforma | Narx |

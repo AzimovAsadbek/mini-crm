@@ -5,6 +5,12 @@ JWT autentifikatsiya, Admin/User rollari, to'rtta bo'lim uchun to'liq CRUD
 (qidiruv, filtr, pagination bilan), statistik dashboard va mobil qurilmalarga
 moslashgan interfeys.
 
+**Ilova:** https://mini-crm-app-blue.vercel.app
+· **API:** https://mini-crm-api.vercel.app/api
+· **Swagger:** https://mini-crm-api.vercel.app/api/docs
+
+Kirish: `admin@minicrm.uz` / `Admin123!`
+
 Deploy bo'yicha qadam-baqadam yo'riqnoma: [DEPLOYMENT.md](DEPLOYMENT.md)
 (Vercel + Neon, butunlay bepul).
 

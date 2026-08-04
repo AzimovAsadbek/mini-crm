@@ -1,0 +1,6 @@
+# Vercel CLI
+.vercel
+
+# Maxfiy sozlamalar — .env.example esa repoda qoladi
+.env*
+!.env.example
