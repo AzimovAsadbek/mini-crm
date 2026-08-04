@@ -5,10 +5,19 @@ import { IsEnum, IsInt, IsOptional, IsPositive } from 'class-validator';
 import { PaginationQueryDto } from '../../../common/dto/pagination-query.dto';
 
 export class QueryTasksDto extends PaginationQueryDto {
-  @ApiPropertyOptional({ enum: TaskStatus, description: "Holat bo'yicha filtr" })
+  @ApiPropertyOptional({
+    enum: TaskStatus,
+    isArray: true,
+    description: "Holat bo'yicha filtr. Bir nechtasini vergul bilan yozish mumkin: PENDING,IN_PROGRESS",
+  })
   @IsOptional()
-  @IsEnum(TaskStatus)
-  status?: TaskStatus;
+  @Transform(({ value }) =>
+    typeof value === 'string'
+      ? value.split(',').map((item) => item.trim()).filter(Boolean)
+      : value,
+  )
+  @IsEnum(TaskStatus, { each: true })
+  status?: TaskStatus[];
 
   @ApiPropertyOptional({ enum: TaskPriority, description: "Muhimlik bo'yicha filtr" })
   @IsOptional()

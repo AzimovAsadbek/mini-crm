@@ -36,7 +36,7 @@ export class TasksService {
 
   async findAll(query: QueryTasksDto): Promise<PaginatedDto<TaskWithRelations>> {
     const where: Prisma.TaskWhereInput = {
-      ...(query.status ? { status: query.status } : {}),
+      ...(query.status?.length ? { status: { in: query.status } } : {}),
       ...(query.priority ? { priority: query.priority } : {}),
       ...(query.projectId ? { projectId: query.projectId } : {}),
       ...(query.assignedUser ? { assignedUser: query.assignedUser } : {}),
