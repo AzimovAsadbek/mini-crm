@@ -14,11 +14,22 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
       sx={{
         minHeight: '100vh',
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+        placeItems: 'center',
+        p: { xs: 2, sm: 4 },
         bgcolor: 'background.default',
       }}
     >
-      <Box sx={{ display: 'grid', placeItems: 'center', p: { xs: 2, sm: 4 } }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 1000,
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 420px) minmax(0, 1fr)' },
+          alignItems: 'center',
+          justifyItems: 'center',
+          gap: { md: 6 },
+        }}
+      >
         <Card sx={{ width: '100%', maxWidth: 420, p: { xs: 3, sm: 4 } }}>
           <Stack spacing={0.5} sx={{ mb: 3 }}>
             <Typography variant="h2">{title}</Typography>
@@ -29,17 +40,10 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
 
           {children}
         </Card>
-      </Box>
 
-      <Box
-        sx={{
-          display: { xs: 'none', md: 'grid' },
-          placeItems: 'center',
-          p: 6,
-          bgcolor: (theme) => (theme.palette.mode === 'light' ? '#EEF4FF' : '#111A2B'),
-        }}
-      >
-        <AuthIllustration />
+        <Box sx={{ display: { xs: 'none', md: 'block' }, width: '100%' }}>
+          <AuthIllustration />
+        </Box>
       </Box>
     </Box>
   );
