@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { Role, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { createHash, randomUUID } from 'node:crypto';
@@ -97,13 +97,13 @@ export class AuthService {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: this.configService.getOrThrow<string>('jwt.accessSecret'),
-        expiresIn: this.configService.getOrThrow<string>('jwt.accessExpiresIn'),
+        expiresIn: this.expiresIn('jwt.accessExpiresIn'),
       }),
       this.jwtService.signAsync(
         { ...payload, jti: randomUUID() },
         {
           secret: this.configService.getOrThrow<string>('jwt.refreshSecret'),
-          expiresIn: this.configService.getOrThrow<string>('jwt.refreshExpiresIn'),
+          expiresIn: this.expiresIn('jwt.refreshExpiresIn'),
         },
       ),
     ]);
@@ -129,6 +129,11 @@ export class AuthService {
     } catch {
       throw new UnauthorizedException('Refresh token yaroqsiz yoki muddati tugagan');
     }
+  }
+
+  /** `.env` dagi qiymat matn, jsonwebtoken esa `'15m'` kabi shablon tipini kutadi. */
+  private expiresIn(key: string): JwtSignOptions['expiresIn'] {
+    return this.configService.getOrThrow<string>(key) as JwtSignOptions['expiresIn'];
   }
 
   private hashToken(token: string): string {
