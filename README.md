@@ -282,8 +282,7 @@ SQL sxema: [`docs/schema.sql`](docs/schema.sql)
 | Projects | `/projects` | Loyihalar CRUD |
 | Tasks | `/tasks` | Vazifalar CRUD |
 | Users | `/users` | Foydalanuvchilar CRUD (faqat admin) |
-| Profile | `/profile` | Profil va parolni o'zgartirish |
-| Settings | `/settings` | Dark Mode va hisob ma'lumotlari |
+| Profile | `/profile` | Profil, parolni o'zgartirish va sozlamalar (Dark Mode) |
 
 ---
 
@@ -329,7 +328,8 @@ SQL sxema: [`docs/schema.sql`](docs/schema.sql)
 
 ## Qo'shimcha imkoniyatlar
 
-- **Dark Mode** — Settings sahifasida yoki topbar tugmasi orqali; tanlov
-  `localStorage` da saqlanadi, birinchi kirishda tizim mavzusiga moslashadi.
+- **Dark Mode** — Profile sahifasidagi sozlamalar bo'limida yoki topbar tugmasi
+  orqali; tanlov `localStorage` da saqlanadi, birinchi kirishda tizim mavzusiga
+  moslashadi.
 - **Docker** — `docker-compose.yml` orqali PostgreSQL konteynerini bitta
   buyruq bilan ko'tarish.

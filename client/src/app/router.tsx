@@ -7,7 +7,6 @@ import { DashboardPage } from '@/pages/dashboard/DashboardPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProfilePage } from '@/pages/profile/ProfilePage';
 import { ProjectsPage } from '@/pages/projects/ProjectsPage';
-import { SettingsPage } from '@/pages/settings/SettingsPage';
 import { TasksPage } from '@/pages/tasks/TasksPage';
 import { UsersPage } from '@/pages/users/UsersPage';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -28,7 +27,7 @@ export function AppRouter() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/tasks" element={<TasksPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/settings" element={<Navigate to="/profile" replace />} />
 
           <Route element={<AdminRoute />}>
             <Route path="/users" element={<UsersPage />} />

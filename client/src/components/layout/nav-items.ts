@@ -4,7 +4,6 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 
 export interface NavItem {
@@ -21,5 +20,4 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Tasks', path: '/tasks', icon: AssignmentOutlinedIcon },
   { label: 'Users', path: '/users', icon: GroupOutlinedIcon, adminOnly: true },
   { label: 'Profile', path: '/profile', icon: PersonOutlineIcon },
-  { label: 'Settings', path: '/settings', icon: SettingsOutlinedIcon },
 ];

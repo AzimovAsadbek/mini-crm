@@ -10,7 +10,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import {
   AppBar,
   Avatar,
@@ -128,13 +127,6 @@ export function Topbar({ title, sidebarOpen, onMenuClick, onLogout }: TopbarProp
               <PersonOutlineIcon fontSize="small" />
             </ListItemIcon>
             Profile
-          </MenuItem>
-
-          <MenuItem onClick={() => goTo('/settings')}>
-            <ListItemIcon>
-              <SettingsOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            Settings
           </MenuItem>
 
           <Divider />
