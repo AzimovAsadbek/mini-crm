@@ -16,6 +16,7 @@ import { NAV_ITEMS } from './nav-items';
 
 interface SidebarProps {
   mobileOpen: boolean;
+  desktopOpen: boolean;
   onClose: () => void;
   onLogout: () => void;
 }
@@ -102,7 +103,7 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
   );
 }
 
-export function Sidebar({ mobileOpen, onClose, onLogout }: SidebarProps) {
+export function Sidebar({ mobileOpen, desktopOpen, onClose, onLogout }: SidebarProps) {
   const paperSx = {
     width: SIDEBAR_WIDTH,
     boxSizing: 'border-box',
@@ -111,7 +112,10 @@ export function Sidebar({ mobileOpen, onClose, onLogout }: SidebarProps) {
   } as const;
 
   return (
-    <Box component="nav" sx={{ width: { lg: SIDEBAR_WIDTH }, flexShrink: { lg: 0 } }}>
+    <Box
+      component="nav"
+      sx={{ width: { lg: desktopOpen ? SIDEBAR_WIDTH : 0 }, flexShrink: { lg: 0 } }}
+    >
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -129,7 +133,7 @@ export function Sidebar({ mobileOpen, onClose, onLogout }: SidebarProps) {
         variant="permanent"
         open
         sx={{
-          display: { xs: 'none', lg: 'block' },
+          display: { xs: 'none', lg: desktopOpen ? 'block' : 'none' },
           '& .MuiDrawer-paper': paperSx,
         }}
       >

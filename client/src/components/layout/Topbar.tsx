@@ -30,11 +30,12 @@ import { useNavigate } from 'react-router-dom';
 
 interface TopbarProps {
   title: string;
+  sidebarOpen: boolean;
   onMenuClick: () => void;
   onLogout: () => void;
 }
 
-export function Topbar({ title, onMenuClick, onLogout }: TopbarProps) {
+export function Topbar({ title, sidebarOpen, onMenuClick, onLogout }: TopbarProps) {
   const { user } = useAuth();
   const { mode, toggleMode } = useColorMode();
   const navigate = useNavigate();
@@ -53,23 +54,16 @@ export function Topbar({ title, onMenuClick, onLogout }: TopbarProps) {
       elevation={0}
       color="inherit"
       sx={{
-        width: { lg: `calc(100% - ${SIDEBAR_WIDTH}px)` },
-        ml: { lg: `${SIDEBAR_WIDTH}px` },
+        width: { lg: sidebarOpen ? `calc(100% - ${SIDEBAR_WIDTH}px)` : '100%' },
+        ml: { lg: sidebarOpen ? `${SIDEBAR_WIDTH}px` : 0 },
         bgcolor: 'background.paper',
         borderBottom: 1,
         borderColor: 'divider',
+        transition: (theme) => theme.transitions.create(['width', 'margin']),
       }}
     >
       <Toolbar sx={{ minHeight: `${TOPBAR_HEIGHT}px !important`, gap: 1 }}>
-        <IconButton
-          onClick={onMenuClick}
-          edge="start"
-          sx={{ display: { lg: 'none' }, color: 'text.secondary' }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        <IconButton sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: 'text.secondary' }}>
+        <IconButton onClick={onMenuClick} edge="start" sx={{ color: 'text.secondary' }}>
           <MenuIcon />
         </IconButton>
 
