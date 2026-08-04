@@ -43,7 +43,7 @@ export class ProjectsController {
 
   @Post()
   @Roles(Role.ADMIN)
-  @ApiOperation({ summary: 'Yangi loyiha qo\'shish' })
+  @ApiOperation({ summary: "Yangi loyiha qo'shish" })
   create(@Body() dto: CreateProjectDto) {
     return this.projectsService.create(dto);
   }

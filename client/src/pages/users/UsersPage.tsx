@@ -51,7 +51,8 @@ export function UsersPage() {
       key: 'index',
       header: '#',
       width: 56,
-      render: (_row, index) => (data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1),
+      render: (_row, index) =>
+        data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1,
     },
     {
       key: 'fullname',
@@ -83,7 +84,10 @@ export function UsersPage() {
       render: (row) => (
         <RowActions
           onView={() => setDetail(row)}
-          onEdit={() => { setEditing(row); setFormOpen(true); }}
+          onEdit={() => {
+            setEditing(row);
+            setFormOpen(true);
+          }}
           onDelete={() => setDeleting(row)}
         />
       ),
@@ -106,7 +110,10 @@ export function UsersPage() {
             />
           }
           actionLabel="Foydalanuvchi qo'shish"
-          onAction={() => { setEditing(null); setFormOpen(true); }}
+          onAction={() => {
+            setEditing(null);
+            setFormOpen(true);
+          }}
         />
 
         <DataTable

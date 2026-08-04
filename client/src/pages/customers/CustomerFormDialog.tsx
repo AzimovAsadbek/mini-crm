@@ -64,7 +64,7 @@ export function CustomerFormDialog({ open, customer, onClose }: CustomerFormDial
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['customers'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
-      toast.success(customer ? "Mijoz yangilandi" : "Mijoz qo'shildi");
+      toast.success(customer ? 'Mijoz yangilandi' : "Mijoz qo'shildi");
       onClose();
     },
     onError: (error) => toast.error(getErrorMessage(error)),

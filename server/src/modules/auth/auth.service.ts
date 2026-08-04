@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { Role, User } from '@prisma/client';
@@ -28,7 +24,7 @@ export class AuthService {
     const exists = await this.prisma.user.findUnique({ where: { email: dto.email } });
 
     if (exists) {
-      throw new ConflictException('Bu email allaqachon ro\'yxatdan o\'tgan');
+      throw new ConflictException("Bu email allaqachon ro'yxatdan o'tgan");
     }
 
     const user = await this.prisma.user.create({
@@ -47,7 +43,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email: dto.email } });
 
     if (!user || !(await bcrypt.compare(dto.password, user.password))) {
-      throw new UnauthorizedException('Email yoki parol noto\'g\'ri');
+      throw new UnauthorizedException("Email yoki parol noto'g'ri");
     }
 
     return this.buildAuthResponse(user);
@@ -73,9 +69,7 @@ export class AuthService {
 
   async logout(userId: number, refreshToken?: string): Promise<{ message: string }> {
     await this.prisma.refreshToken.deleteMany({
-      where: refreshToken
-        ? { userId, tokenHash: this.hashToken(refreshToken) }
-        : { userId },
+      where: refreshToken ? { userId, tokenHash: this.hashToken(refreshToken) } : { userId },
     });
 
     return { message: 'Tizimdan muvaffaqiyatli chiqdingiz' };

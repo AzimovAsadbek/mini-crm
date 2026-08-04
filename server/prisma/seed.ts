@@ -1,52 +1,142 @@
-import {
-  PrismaClient,
-  ProjectStatus,
-  Role,
-  TaskPriority,
-  TaskStatus,
-} from '@prisma/client';
+import { PrismaClient, ProjectStatus, Role, TaskPriority, TaskStatus } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 const COMPANIES = [
-  'IT Solutions', 'SoftUz', 'Web Studio', 'Dev Team', 'CodePro', 'Digital Nomad',
-  'TechnoPark', 'Innova Group', 'SmartLine', 'NextGen Lab', 'CloudBridge', 'DataFlow',
-  'Alpha Systems', 'Beta Digital', 'Gamma Tech', 'Delta Soft', 'Orbita IT', 'Zamon Tech',
-  'Nur Systems', 'Global Link', 'Silk Road Soft', 'Uzinfocom Plus', 'MegaByte', 'PixelWorks',
-  'Bright Code', 'Vertex Labs', 'Quantum IT', 'Nova Digital', 'Prime Soft', 'Apex Studio',
+  'IT Solutions',
+  'SoftUz',
+  'Web Studio',
+  'Dev Team',
+  'CodePro',
+  'Digital Nomad',
+  'TechnoPark',
+  'Innova Group',
+  'SmartLine',
+  'NextGen Lab',
+  'CloudBridge',
+  'DataFlow',
+  'Alpha Systems',
+  'Beta Digital',
+  'Gamma Tech',
+  'Delta Soft',
+  'Orbita IT',
+  'Zamon Tech',
+  'Nur Systems',
+  'Global Link',
+  'Silk Road Soft',
+  'Uzinfocom Plus',
+  'MegaByte',
+  'PixelWorks',
+  'Bright Code',
+  'Vertex Labs',
+  'Quantum IT',
+  'Nova Digital',
+  'Prime Soft',
+  'Apex Studio',
 ];
 
 const FIRST_NAMES = [
-  'Anvar', 'Dilshod', 'Azizbek', 'Jasur', 'Ibrohim', 'Sardor', 'Bekzod', 'Otabek',
-  'Aziza', 'Nilufar', 'Malika', 'Gulnora', 'Kamola', 'Sevara', 'Zilola', 'Dilnoza',
-  'Shohruh', 'Rustam', 'Farrux', 'Ulugbek',
+  'Anvar',
+  'Dilshod',
+  'Azizbek',
+  'Jasur',
+  'Ibrohim',
+  'Sardor',
+  'Bekzod',
+  'Otabek',
+  'Aziza',
+  'Nilufar',
+  'Malika',
+  'Gulnora',
+  'Kamola',
+  'Sevara',
+  'Zilola',
+  'Dilnoza',
+  'Shohruh',
+  'Rustam',
+  'Farrux',
+  'Ulugbek',
 ];
 
 const LAST_NAMES = [
-  'Karimov', 'Alimov', 'Tursunov', 'Ahmedov', 'Yuldoshev', 'Saidov', 'Rahimov', 'Nazarov',
-  'Ergashev', 'Qodirov', 'Sultonov', 'Mirzayev', 'Toshmatov', 'Xolmatov', 'Jo\'rayev',
+  'Karimov',
+  'Alimov',
+  'Tursunov',
+  'Ahmedov',
+  'Yuldoshev',
+  'Saidov',
+  'Rahimov',
+  'Nazarov',
+  'Ergashev',
+  'Qodirov',
+  'Sultonov',
+  'Mirzayev',
+  'Toshmatov',
+  'Xolmatov',
+  "Jo'rayev",
 ];
 
 const CITIES = [
-  'Toshkent', 'Samarqand', 'Buxoro', 'Andijon', 'Farg\'ona', 'Namangan', 'Nukus',
-  'Qarshi', 'Termiz', 'Navoiy', 'Jizzax', 'Guliston', 'Urganch',
+  'Toshkent',
+  'Samarqand',
+  'Buxoro',
+  'Andijon',
+  "Farg'ona",
+  'Namangan',
+  'Nukus',
+  'Qarshi',
+  'Termiz',
+  'Navoiy',
+  'Jizzax',
+  'Guliston',
+  'Urganch',
 ];
 
 const PROJECT_NAMES = [
-  'CRM tizim', 'Online do\'kon', 'Mobil ilova', 'Landing page', 'Admin panel',
-  'To\'lov integratsiyasi', 'Korporativ sayt', 'Yetkazib berish tizimi', 'HR platforma',
-  'Analitika dashboard', 'Chatbot', 'Ombor tizimi', 'Bron qilish servisi', 'Ta\'lim portali',
-  'Buxgalteriya moduli', 'Logistika tizimi', 'Telemedicina ilovasi', 'Ijtimoiy tarmoq',
-  'Video platforma', 'IoT monitoring',
+  'CRM tizim',
+  "Online do'kon",
+  'Mobil ilova',
+  'Landing page',
+  'Admin panel',
+  "To'lov integratsiyasi",
+  'Korporativ sayt',
+  'Yetkazib berish tizimi',
+  'HR platforma',
+  'Analitika dashboard',
+  'Chatbot',
+  'Ombor tizimi',
+  'Bron qilish servisi',
+  "Ta'lim portali",
+  'Buxgalteriya moduli',
+  'Logistika tizimi',
+  'Telemedicina ilovasi',
+  'Ijtimoiy tarmoq',
+  'Video platforma',
+  'IoT monitoring',
 ];
 
 const TASK_TITLES = [
-  'Login page yaratish', 'Ma\'lumotlar bazasi tuzish', 'API yozish', 'Dizayn tayyorlash',
-  'Testlash', 'Deploy qilish', 'Hujjatlarni yozish', 'Kod review', 'Bug tuzatish',
-  'Performance optimizatsiya', 'Xavfsizlik auditi', 'Responsive moslash',
-  'To\'lov integratsiyasi', 'Email xabarnoma', 'Push notification', 'Kesh sozlash',
-  'Backup skript', 'CI/CD sozlash', 'Analitika ulash', 'Til qo\'shish',
+  'Login page yaratish',
+  "Ma'lumotlar bazasi tuzish",
+  'API yozish',
+  'Dizayn tayyorlash',
+  'Testlash',
+  'Deploy qilish',
+  'Hujjatlarni yozish',
+  'Kod review',
+  'Bug tuzatish',
+  'Performance optimizatsiya',
+  'Xavfsizlik auditi',
+  'Responsive moslash',
+  "To'lov integratsiyasi",
+  'Email xabarnoma',
+  'Push notification',
+  'Kesh sozlash',
+  'Backup skript',
+  'CI/CD sozlash',
+  'Analitika ulash',
+  "Til qo'shish",
 ];
 
 const USERS = [
@@ -56,8 +146,18 @@ const USERS = [
   { fullname: 'Sarvar Karimov', email: 'sarvar@minicrm.uz', password: 'User123!', role: Role.USER },
   { fullname: 'Aziza Saidova', email: 'aziza@minicrm.uz', password: 'User123!', role: Role.USER },
   { fullname: 'Bekzod Aliyev', email: 'bekzod@minicrm.uz', password: 'User123!', role: Role.USER },
-  { fullname: 'Nilufar Ergasheva', email: 'nilufar@minicrm.uz', password: 'User123!', role: Role.USER },
-  { fullname: 'Otabek Nazarov', email: 'otabek@minicrm.uz', password: 'User123!', role: Role.ADMIN },
+  {
+    fullname: 'Nilufar Ergasheva',
+    email: 'nilufar@minicrm.uz',
+    password: 'User123!',
+    role: Role.USER,
+  },
+  {
+    fullname: 'Otabek Nazarov',
+    email: 'otabek@minicrm.uz',
+    password: 'User123!',
+    role: Role.ADMIN,
+  },
 ];
 
 /** Seed har ishga tushganda bir xil natija bersin — takrorlanuvchi pseudo-random. */
@@ -131,7 +231,8 @@ async function main(): Promise<void> {
   const projects = [];
   for (let index = 0; index < 56; index += 1) {
     const name = PROJECT_NAMES[index % PROJECT_NAMES.length];
-    const suffix = index >= PROJECT_NAMES.length ? ` v${Math.floor(index / PROJECT_NAMES.length) + 1}` : '';
+    const suffix =
+      index >= PROJECT_NAMES.length ? ` v${Math.floor(index / PROJECT_NAMES.length) + 1}` : '';
 
     projects.push(
       await prisma.project.create({

@@ -18,7 +18,10 @@ const schema = z
     newPassword: z
       .string()
       .min(6, "Yangi parol kamida 6 belgidan iborat bo'lishi kerak")
-      .regex(/^(?=.*[A-Za-z])(?=.*\d).+$/, "Parolda kamida bitta harf va bitta raqam bo'lishi kerak"),
+      .regex(
+        /^(?=.*[A-Za-z])(?=.*\d).+$/,
+        "Parolda kamida bitta harf va bitta raqam bo'lishi kerak",
+      ),
     confirmPassword: z.string(),
   })
   .refine((values) => values.newPassword === values.confirmPassword, {

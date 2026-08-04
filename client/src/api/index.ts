@@ -43,9 +43,7 @@ export const usersApi = {
   detail: (id: number) => api.get<User>(`/users/${id}`).then((res) => res.data),
 
   assignable: () =>
-    api
-      .get<Pick<User, 'id' | 'fullname' | 'email'>[]>('/users/assignable')
-      .then((res) => res.data),
+    api.get<Pick<User, 'id' | 'fullname' | 'email'>[]>('/users/assignable').then((res) => res.data),
 
   create: (payload: Record<string, unknown>) =>
     api.post<User>('/users', payload).then((res) => res.data),
@@ -98,9 +96,7 @@ export const projectsApi = {
   detail: (id: number) => api.get<ProjectDetail>(`/projects/${id}`).then((res) => res.data),
 
   select: () =>
-    api
-      .get<Pick<Project, 'id' | 'projectName'>[]>('/projects/select')
-      .then((res) => res.data),
+    api.get<Pick<Project, 'id' | 'projectName'>[]>('/projects/select').then((res) => res.data),
 
   create: (payload: Record<string, unknown>) =>
     api.post<Project>('/projects', payload).then((res) => res.data),

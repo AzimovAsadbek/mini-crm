@@ -69,9 +69,7 @@ export class DashboardService {
       }),
     ]);
 
-    const countsByStatus = new Map(
-      projectGroups.map((group) => [group.status, group._count._all]),
-    );
+    const countsByStatus = new Map(projectGroups.map((group) => [group.status, group._count._all]));
 
     return {
       totalCustomers,

@@ -58,7 +58,8 @@ export function ProjectsPage() {
       key: 'index',
       header: '#',
       width: 56,
-      render: (_row, index) => (data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1),
+      render: (_row, index) =>
+        data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1,
     },
     {
       key: 'projectName',
@@ -96,7 +97,14 @@ export function ProjectsPage() {
       render: (row) => (
         <RowActions
           onView={() => setDetailId(row.id)}
-          onEdit={isAdmin ? () => { setEditing(row); setFormOpen(true); } : undefined}
+          onEdit={
+            isAdmin
+              ? () => {
+                  setEditing(row);
+                  setFormOpen(true);
+                }
+              : undefined
+          }
           onDelete={isAdmin ? () => setDeleting(row) : undefined}
         />
       ),

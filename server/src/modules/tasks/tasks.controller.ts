@@ -11,10 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Role } from '@prisma/client';
-import {
-  AuthenticatedUser,
-  CurrentUser,
-} from '../../common/decorators/current-user.decorator';
+import { AuthenticatedUser, CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { QueryTasksDto } from './dto/query-tasks.dto';
@@ -28,7 +25,9 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  @ApiOperation({ summary: "Vazifalar ro'yxati (qidiruv, loyiha/holat/muhimlik filtri, pagination)" })
+  @ApiOperation({
+    summary: "Vazifalar ro'yxati (qidiruv, loyiha/holat/muhimlik filtri, pagination)",
+  })
   findAll(@Query() query: QueryTasksDto) {
     return this.tasksService.findAll(query);
   }
@@ -41,7 +40,7 @@ export class TasksController {
 
   @Post()
   @Roles(Role.ADMIN)
-  @ApiOperation({ summary: 'Yangi vazifa qo\'shish' })
+  @ApiOperation({ summary: "Yangi vazifa qo'shish" })
   create(@Body() dto: CreateTaskDto) {
     return this.tasksService.create(dto);
   }

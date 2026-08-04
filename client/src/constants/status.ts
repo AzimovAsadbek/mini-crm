@@ -31,18 +31,18 @@ export const ROLE_LABEL: Record<Role, string> = {
   USER: 'User',
 };
 
-export const PROJECT_STATUS_OPTIONS = (
-  Object.keys(PROJECT_STATUS) as ProjectStatus[]
-).map((value) => ({ value, label: PROJECT_STATUS[value].label }));
+export const PROJECT_STATUS_OPTIONS = (Object.keys(PROJECT_STATUS) as ProjectStatus[]).map(
+  (value) => ({ value, label: PROJECT_STATUS[value].label }),
+);
 
 export const TASK_STATUS_OPTIONS = (Object.keys(TASK_STATUS) as TaskStatus[]).map((value) => ({
   value,
   label: TASK_STATUS[value].label,
 }));
 
-export const TASK_PRIORITY_OPTIONS = (
-  Object.keys(TASK_PRIORITY) as TaskPriority[]
-).map((value) => ({ value, label: TASK_PRIORITY[value].label }));
+export const TASK_PRIORITY_OPTIONS = (Object.keys(TASK_PRIORITY) as TaskPriority[]).map(
+  (value) => ({ value, label: TASK_PRIORITY[value].label }),
+);
 
 export const ROLE_OPTIONS = (Object.keys(ROLE_LABEL) as Role[]).map((value) => ({
   value,

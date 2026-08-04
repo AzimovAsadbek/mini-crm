@@ -58,7 +58,8 @@ export function CustomersPage() {
       key: 'index',
       header: '#',
       width: 56,
-      render: (_row, index) => (data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1),
+      render: (_row, index) =>
+        data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1,
     },
     {
       key: 'companyName',
@@ -111,11 +112,7 @@ export function CustomersPage() {
         <TableFooter meta={data?.meta} page={page} onPageChange={setPage} />
       </PageCard>
 
-      <CustomerFormDialog
-        open={formOpen}
-        customer={editing}
-        onClose={() => setFormOpen(false)}
-      />
+      <CustomerFormDialog open={formOpen} customer={editing} onClose={() => setFormOpen(false)} />
 
       <CustomerDetailDialog customerId={detailId} onClose={() => setDetailId(null)} />
 

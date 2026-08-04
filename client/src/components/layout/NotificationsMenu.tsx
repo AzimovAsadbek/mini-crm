@@ -86,9 +86,7 @@ export function NotificationsMenu() {
         <Box sx={{ px: 2, py: 1.5 }}>
           <Typography variant="h6">Bildirishnomalar</Typography>
           <Typography variant="body2" color="text.secondary">
-            {openCount > 0
-              ? `Sizda ${openCount} ta ochiq vazifa bor`
-              : 'Ochiq vazifalaringiz yo‘q'}
+            {openCount > 0 ? `Sizda ${openCount} ta ochiq vazifa bor` : 'Ochiq vazifalaringiz yo‘q'}
           </Typography>
         </Box>
 
@@ -120,19 +118,13 @@ export function NotificationsMenu() {
                 />
 
                 <Box sx={{ minWidth: 0 }}>
-                  <Typography
-                    sx={{ fontSize: 14, fontWeight: 500 }}
-                    noWrap
-                    title={task.title}
-                  >
+                  <Typography sx={{ fontSize: 14, fontWeight: 500 }} noWrap title={task.title}>
                     {task.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" noWrap>
                     {task.project.projectName}
                   </Typography>
-                  <Typography
-                    sx={{ fontSize: 12, fontWeight: 600, color: URGENCY_COLOR[urgency] }}
-                  >
+                  <Typography sx={{ fontSize: 12, fontWeight: 600, color: URGENCY_COLOR[urgency] }}>
                     {deadlineLabel(task.deadline)}
                   </Typography>
                 </Box>

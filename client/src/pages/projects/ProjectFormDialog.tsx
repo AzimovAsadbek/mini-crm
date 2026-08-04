@@ -111,12 +111,7 @@ export function ProjectFormDialog({ open, project, onClose }: ProjectFormDialogP
           }))}
         />
 
-        <RHFSelect
-          name="status"
-          control={control}
-          label="Holat"
-          options={PROJECT_STATUS_OPTIONS}
-        />
+        <RHFSelect name="status" control={control} label="Holat" options={PROJECT_STATUS_OPTIONS} />
 
         <RHFTextField
           name="deadline"
@@ -126,13 +121,7 @@ export function ProjectFormDialog({ open, project, onClose }: ProjectFormDialogP
           slotProps={{ inputLabel: { shrink: true } }}
         />
 
-        <RHFTextField
-          name="description"
-          control={control}
-          label="Tavsif"
-          multiline
-          minRows={3}
-        />
+        <RHFTextField name="description" control={control} label="Tavsif" multiline minRows={3} />
       </Stack>
     </FormDialog>
   );

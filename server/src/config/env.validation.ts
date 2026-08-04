@@ -37,11 +37,11 @@ class EnvironmentVariables {
   CORS_ORIGIN?: string;
 
   @IsString()
-  @MinLength(16, { message: 'JWT_ACCESS_SECRET kamida 16 belgidan iborat bo\'lishi kerak' })
+  @MinLength(16, { message: "JWT_ACCESS_SECRET kamida 16 belgidan iborat bo'lishi kerak" })
   JWT_ACCESS_SECRET!: string;
 
   @IsString()
-  @MinLength(16, { message: 'JWT_REFRESH_SECRET kamida 16 belgidan iborat bo\'lishi kerak' })
+  @MinLength(16, { message: "JWT_REFRESH_SECRET kamida 16 belgidan iborat bo'lishi kerak" })
   JWT_REFRESH_SECRET!: string;
 
   @IsOptional()

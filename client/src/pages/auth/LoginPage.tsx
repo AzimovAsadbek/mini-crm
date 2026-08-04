@@ -4,15 +4,7 @@ import { RHFTextField } from '@/components/form/RHFTextField';
 import { useAuth } from '@/hooks/use-auth';
 import { getErrorMessage } from '@/lib/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Link,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, Link, Stack, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -22,7 +14,7 @@ import { AuthLayout } from './AuthLayout';
 
 const schema = z.object({
   email: z.string().min(1, 'Email kiriting').email("Email formati noto'g'ri"),
-  password: z.string().min(6, 'Parol kamida 6 belgidan iborat bo\'lishi kerak'),
+  password: z.string().min(6, "Parol kamida 6 belgidan iborat bo'lishi kerak"),
   /** Belgilansa sessiya 7 kun saqlanadi, aks holda brauzer yopilguncha. */
   remember: z.boolean(),
 });

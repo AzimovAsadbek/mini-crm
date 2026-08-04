@@ -62,7 +62,8 @@ export function TasksPage() {
       key: 'index',
       header: '#',
       width: 56,
-      render: (_row, index) => (data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1),
+      render: (_row, index) =>
+        data ? (data.meta.page - 1) * data.meta.limit + index + 1 : index + 1,
     },
     {
       key: 'title',
@@ -108,7 +109,14 @@ export function TasksPage() {
       render: (row) => (
         <RowActions
           onView={() => setDetailId(row.id)}
-          onEdit={canEdit(row) ? () => { setEditing(row); setFormOpen(true); } : undefined}
+          onEdit={
+            canEdit(row)
+              ? () => {
+                  setEditing(row);
+                  setFormOpen(true);
+                }
+              : undefined
+          }
           onDelete={isAdmin ? () => setDeleting(row) : undefined}
         />
       ),
@@ -141,7 +149,14 @@ export function TasksPage() {
             </>
           }
           actionLabel={isAdmin ? 'Yangi vazifa' : undefined}
-          onAction={isAdmin ? () => { setEditing(null); setFormOpen(true); } : undefined}
+          onAction={
+            isAdmin
+              ? () => {
+                  setEditing(null);
+                  setFormOpen(true);
+                }
+              : undefined
+          }
         />
 
         <DataTable

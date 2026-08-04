@@ -21,7 +21,13 @@ interface SidebarProps {
   onLogout: () => void;
 }
 
-function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLogout: () => void }) {
+function SidebarContent({
+  onNavigate,
+  onLogout,
+}: {
+  onNavigate: () => void;
+  onLogout: () => void;
+}) {
   const { isAdmin } = useAuth();
   const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin);
 

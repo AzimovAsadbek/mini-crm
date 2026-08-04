@@ -44,7 +44,7 @@ async function refreshAccessToken(): Promise<string> {
   const refreshToken = tokenStorage.getRefreshToken();
 
   if (!refreshToken) {
-    throw new Error('Refresh token yo\'q');
+    throw new Error("Refresh token yo'q");
   }
 
   // `api` emas, toza axios — bu so'rov 401 interceptoriga qayta tushmasligi kerak.

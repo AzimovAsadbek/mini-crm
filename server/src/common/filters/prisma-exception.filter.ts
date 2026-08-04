@@ -32,9 +32,7 @@ export class PrismaExceptionFilter implements ExceptionFilter {
         const target = (exception.meta?.target as string[] | undefined)?.join(', ');
         return {
           status: HttpStatus.CONFLICT,
-          message: target
-            ? `Bunday ${target} allaqachon mavjud`
-            : 'Bunday yozuv allaqachon mavjud',
+          message: target ? `Bunday ${target} allaqachon mavjud` : 'Bunday yozuv allaqachon mavjud',
         };
       }
       case 'P2025':

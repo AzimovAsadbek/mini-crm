@@ -43,7 +43,7 @@ export class CustomersController {
 
   @Post()
   @Roles(Role.ADMIN)
-  @ApiOperation({ summary: 'Yangi mijoz qo\'shish' })
+  @ApiOperation({ summary: "Yangi mijoz qo'shish" })
   create(@Body() dto: CreateCustomerDto) {
     return this.customersService.create(dto);
   }

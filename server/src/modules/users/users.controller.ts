@@ -67,7 +67,7 @@ export class UsersController {
 
   @Patch(':id')
   @Roles(Role.ADMIN)
-  @ApiOperation({ summary: "Foydalanuvchini tahrirlash" })
+  @ApiOperation({ summary: 'Foydalanuvchini tahrirlash' })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateUserDto) {
     return this.usersService.update(id, dto);
   }

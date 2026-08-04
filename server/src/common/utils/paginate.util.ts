@@ -1,4 +1,4 @@
-import { PaginatedDto } from '../dto/paginated-response.dto';
+import { type PaginatedDto } from '../dto/paginated-response.dto';
 
 export function buildPaginated<T>(
   data: T[],
