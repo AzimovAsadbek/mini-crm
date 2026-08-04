@@ -203,6 +203,7 @@ Qo'shimcha filtrlar:
 
 - `GET /api/projects` — `?status`, `?customerId`
 - `GET /api/tasks` — `?status`, `?priority`, `?projectId`, `?assignedUser`
+  (`status` bir nechta qiymatni qabul qiladi: `?status=PENDING,IN_PROGRESS`)
 - `GET /api/users` — `?role`
 
 Yordamchi endpointlar: `/api/customers/select`, `/api/projects/select`,
@@ -282,7 +283,11 @@ SQL sxema: [`docs/schema.sql`](docs/schema.sql)
 | Projects | `/projects` | Loyihalar CRUD |
 | Tasks | `/tasks` | Vazifalar CRUD |
 | Users | `/users` | Foydalanuvchilar CRUD (faqat admin) |
-| Profile | `/profile` | Profil, parolni o'zgartirish va sozlamalar (Dark Mode) |
+| Profile | `/profile` | Profil, shaxsiy vazifa statistikasi, parolni o'zgartirish va sozlamalar (Dark Mode) |
+
+Topbardagi qo'ng'iroq belgisi joriy foydalanuvchiga biriktirilgan ochiq
+vazifalarni ko'rsatadi: badge — ularning soni, ro'yxat esa deadline bo'yicha
+tartiblangan (muddati o'tganlar qizil, 3 kundan kam qolganlari sariq).
 
 ---
 
