@@ -16,7 +16,8 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
         display: 'grid',
         placeItems: 'center',
         p: { xs: 2, sm: 4 },
-        bgcolor: 'background.default',
+        // Illyustratsiya foni bilan bir xil rang — rasm chegarasi ko'rinmaydi.
+        bgcolor: (theme) => (theme.palette.mode === 'light' ? '#F4F7FE' : 'background.default'),
       }}
     >
       <Box
