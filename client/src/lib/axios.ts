@@ -1,8 +1,15 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { tokenStorage } from './token-storage';
 
+/**
+ * Dev rejimda `/api` Vite proxy orqali backendga boradi.
+ * Deploy qilinganda `VITE_API_URL` to'liq manzilni beradi, masalan
+ * `https://mini-crm-api.vercel.app/api`.
+ */
+export const API_BASE_URL = import.meta.env.VITE_API_URL ?? '/api';
+
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -33,7 +40,8 @@ async function refreshAccessToken(): Promise<string> {
     throw new Error('Refresh token yo\'q');
   }
 
-  const { data } = await axios.post('/api/auth/refresh', { refreshToken });
+  // `api` emas, toza axios — bu so'rov 401 interceptoriga qayta tushmasligi kerak.
+  const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, { refreshToken });
   tokenStorage.save(data.accessToken, data.refreshToken, data.user);
 
   return data.accessToken;

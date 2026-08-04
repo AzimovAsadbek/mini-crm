@@ -5,6 +5,9 @@ JWT autentifikatsiya, Admin/User rollari, to'rtta bo'lim uchun to'liq CRUD
 (qidiruv, filtr, pagination bilan), statistik dashboard va mobil qurilmalarga
 moslashgan interfeys.
 
+Deploy bo'yicha qadam-baqadam yo'riqnoma: [DEPLOYMENT.md](DEPLOYMENT.md)
+(Vercel + Neon, butunlay bepul).
+
 ---
 
 ## Texnologiyalar
