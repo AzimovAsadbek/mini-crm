@@ -1,4 +1,8 @@
-/** Maketdagi sana formati — 22.05.2024 */
+/**
+ * Maketdagi sana formati — 22.05.2024.
+ * `Intl` ba'zi muhitlarda `uz-UZ` uchun ISO ko'rinish qaytargani sababli
+ * format qo'lda yig'iladi.
+ */
 export function formatDate(value?: string | null): string {
   if (!value) {
     return '—';
@@ -10,11 +14,10 @@ export function formatDate(value?: string | null): string {
     return '—';
   }
 
-  return new Intl.DateTimeFormat('uz-UZ', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }).format(date);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+
+  return `${day}.${month}.${date.getFullYear()}`;
 }
 
 /** `<input type="date">` uchun YYYY-MM-DD */

@@ -15,7 +15,7 @@ export function StatCard({ label, value, color, icon: Icon }: StatCardProps) {
         bgcolor: color,
         border: 'none',
         color: '#fff',
-        p: 2,
+        p: 1.75,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -28,10 +28,13 @@ export function StatCard({ label, value, color, icon: Icon }: StatCardProps) {
           sx={{
             fontSize: 11,
             fontWeight: 600,
-            letterSpacing: 0.6,
+            letterSpacing: 0.3,
             textTransform: 'uppercase',
             opacity: 0.9,
             lineHeight: 1.4,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}
         >
           {label}
@@ -44,8 +47,8 @@ export function StatCard({ label, value, color, icon: Icon }: StatCardProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: 44,
-          height: 44,
+          width: 40,
+          height: 40,
           flexShrink: 0,
           borderRadius: '50%',
           bgcolor: 'rgba(255,255,255,0.2)',

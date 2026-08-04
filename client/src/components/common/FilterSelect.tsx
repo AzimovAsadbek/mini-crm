@@ -23,6 +23,8 @@ export function FilterSelect({
       value={value}
       onChange={(event) => onChange(event.target.value)}
       sx={{ minWidth: { xs: '100%', sm: minWidth } }}
+      // Filtr tanlanmaganida ham "Barcha ..." matni ko'rinib tursin.
+      slotProps={{ select: { displayEmpty: true } }}
     >
       <MenuItem value="">{allLabel}</MenuItem>
       {options.map((option) => (
