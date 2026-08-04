@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mini-crm-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: minicrm
+      POSTGRES_PASSWORD: minicrm
+      POSTGRES_DB: mini_crm
+    # Lokal PostgreSQL o'rnatilgan bo'lsa 5432 band bo'ladi — shuning uchun 5434.
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U minicrm -d mini_crm']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

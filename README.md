@@ -65,7 +65,21 @@ mini-crm/
 git clone https://github.com/AzimovAsadbek/mini-crm.git
 ```
 
-### 2. Backend
+### 2. Ma'lumotlar bazasi
+
+Eng oson yo'li — loyiha ildizidagi `docker-compose.yml` orqali Postgres
+konteynerini ko'tarish (host portida `5434`, lokal PostgreSQL bilan
+to'qnashmasligi uchun):
+
+```bash
+docker compose up -d
+```
+
+Agar o'zingizning PostgreSQL serveringizdan foydalanmoqchi bo'lsangiz, shunchaki
+`mini_crm` nomli baza yarating va `server/.env` dagi `DATABASE_URL` ni
+o'zgartiring.
+
+### 3. Backend
 
 ```bash
 cd server
@@ -82,7 +96,7 @@ cp .env.example .env
 
 | O'zgaruvchi | Tavsif | Namuna |
 | --- | --- | --- |
-| `DATABASE_URL` | PostgreSQL ulanish satri | `postgresql://postgres:parol@localhost:5432/mini_crm?schema=public` |
+| `DATABASE_URL` | PostgreSQL ulanish satri | `postgresql://minicrm:minicrm@localhost:5434/mini_crm?schema=public` |
 | `PORT` | Server porti | `4000` |
 | `API_PREFIX` | API prefiksi | `api` |
 | `CORS_ORIGIN` | Ruxsat etilgan frontend manzili | `http://localhost:5173` |
@@ -111,7 +125,7 @@ npm run start:dev
 - API: <http://localhost:4000/api>
 - Swagger: <http://localhost:4000/api/docs>
 
-### 3. Frontend
+### 4. Frontend
 
 ```bash
 cd client
@@ -317,3 +331,5 @@ SQL sxema: [`docs/schema.sql`](docs/schema.sql)
 
 - **Dark Mode** — Settings sahifasida yoki topbar tugmasi orqali; tanlov
   `localStorage` da saqlanadi, birinchi kirishda tizim mavzusiga moslashadi.
+- **Docker** — `docker-compose.yml` orqali PostgreSQL konteynerini bitta
+  buyruq bilan ko'tarish.
